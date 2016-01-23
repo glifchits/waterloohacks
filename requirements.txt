@@ -1,0 +1,4 @@
+Django==1.9.1
+gunicorn==19.4.5
+http://effbot.org/media/downloads/Imaging-1.1.7.tar.gz
+virtualenv==14.0.1
