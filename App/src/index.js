@@ -6,9 +6,11 @@ import React, {
   Text,
   View,
   ScrollView,
-  Image
+  Image,
+  CameraRoll,
 } from 'react-native';
 
+import Footer from './Footer';
 import FeedImage from './FeedImage';
 
 
@@ -72,11 +74,13 @@ class ImageFeed extends Component {
 
 
 export default class App extends Component {
+
   render() {
     return (
       <View style={styles.container}>
         <Header />
         <ImageFeed />
+        <Footer />
       </View>
     );
   }
