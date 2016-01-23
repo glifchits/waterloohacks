@@ -4,10 +4,10 @@ var App = React.createClass({
 
   render: function() {
     return (
-      <div>Hello</div>
+      <div>Hiya</div>
     );
   }
 
 });
 
-React.render(<App />, document.getElementById('app'));
+module.exports = App;
