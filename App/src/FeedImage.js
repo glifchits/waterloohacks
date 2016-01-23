@@ -8,25 +8,29 @@ import React, {
   Text
 } from 'react-native';
 
-var Icon = require('react-native-vector-icons/Ionicons');
+var FAIcon = require('react-native-vector-icons/FontAwesome');
+var IONIcon = require('react-native-vector-icons/Ionicons');
 
 class PostToolbar extends Component {
 
   render() {
     return (
       <View style={styles.toolbar}>
-        <Text style={styles.toolbarButton}>
-          <Icon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
-        </Text>
-        <Text style={styles.toolbarButton}>
-          <Icon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
-        </Text>
-        <Text style={styles.toolbarButton}>
-          <Icon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
-        </Text>
-        <Text style={styles.toolbarButton}>
-          <Icon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
-        </Text>
+        <View style={styles.toolbarButton}>
+          <FAIcon name="smile-o" size={30} style={styles.toolbarButtonIcon}/>
+        </View>
+        <View style={styles.toolbarButton}>
+          <IONIcon name="ios-rainy-outline" size={30} style={styles.toolbarButtonIcon}/>
+        </View>
+        <View style={styles.toolbarButton}>
+          <IONIcon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
+        </View>
+        <View style={styles.toolbarButton}>
+          <IONIcon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
+        </View>
+        <View style={styles.toolbarButton}>
+          <IONIcon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
+        </View>
       </View>
     );
   };
@@ -41,9 +45,9 @@ export default class FeedImage extends Component {
     const url = `https://picsule.herokuapp.com${image.url}`;
     console.log("URL", url);
     return (
-      <View>
-          <Image source={{uri: url}} style={styles.feedImage} />
-          <PostToolbar/>
+      <View style={styles.mainContainer}>
+        <Image source={{uri: url}} style={styles.feedImage} />
+        <PostToolbar />
       </View>
     );
   }
@@ -53,26 +57,28 @@ export default class FeedImage extends Component {
 
 const styles = StyleSheet.create({
 
+  mainContainer:{
+    flex: 1,
+  },
+
+  feedImage:{
+    height: 400,
+    width: 400,
+    padding: 15
+  },
+
   toolbar:{
-    backgroundColor:'#81c04d',
-    paddingTop:10,
-    paddingBottom:10,
+    backgroundColor:'#fff',
+    paddingTop:5,
+    paddingBottom:5,
     flexDirection:'row'
   },
-
   toolbarButton:{
+    flex: 1,
+  },
+  toolbarButtonIcon: {
     textAlign:'center',
-    alignSelf: 'stretch',
-    width: 50,
+    color: '#ccc'
   },
-
-  toolbarButtonIcon:{
-    color:'#fff',
-  },
-
-  feedImage: {
-    width: 400,
-    height: 400
-  }
 
 });
