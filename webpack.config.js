@@ -22,8 +22,14 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loaders: ['react-hot', 'babel'],
+      loaders: ['react-hot', 'babel?presets[]=es2015&presets[]=react'],
       include: path.join(__dirname, 'src')
+    },
+    { test: /\.scss$/, 
+      loader: 'style!css!autoprefixer!sass' 
     }]
   }
 };
+
+// THANK YOU!
+// http://stackoverflow.com/questions/33460420/babel-loader-jsx-syntaxerror-unexpected-token
