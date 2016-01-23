@@ -13,9 +13,12 @@ export default class FeedImage extends Component {
 
   render() {
     const image = this.props.image;
-    const url = image.images.standard_resolution.url;
+    const url = `https://picsule.herokuapp.com${image}`;
+    console.log("URL", url);
     return (
-      <Image source={{uri: url}} style={styles.feedImage} />
+      <View>
+        <Image source={{uri: url}} style={styles.feedImage} />
+      </View>
     );
   }
 

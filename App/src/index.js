@@ -40,20 +40,12 @@ class ImageFeed extends Component {
   };
 
   fetchImages() {
-    // 43°28'10.1"N 80°32'25.2"W
-    const lat = '43.28';
-    const lng = '80.32';
-    //const CLIENT_ID = '6b5e3ad42b4a4077b2bdecabea5e08de';
-    const CLIENT_ID = '6851a8557208436fb7008f50449e1d7c';
-    //const CLIENT_SECRET = 'e2d13faaca6d4747aeef954061a38f4e';
-    //const URL = "https://api.instagram.com/v1/media/search?lat=48.858844&lng=2.294351&client_id=${CLIENT_ID}";
-    const URL = "https://api.instagram.com/v1/media/search?lat=48.858844&lng=2.294351&client_id=6851a8557208436fb7008f50449e1d7c";
-
-    fetch(URL)
+    fetch("https://picsule.herokuapp.com/myapp/jsonResult/")
       .then(resp => resp.json())
       .then(respData => {
+        console.log('images', respData);
         this.setState({
-          images: respData.data,
+          images: respData,
         });
       })
       .done();
@@ -67,7 +59,7 @@ class ImageFeed extends Component {
     let content;
     if (this.state && this.state.images) {
       const images = this.state.images;
-      content = <ScrollView>{images.map(image => <FeedImage key={image.id} image={image} />)}</ScrollView>;
+      content = <ScrollView>{images.map((image, idx) => <FeedImage key={idx} image={image} />)}</ScrollView>;
     } else {
       content = <Text>Image Feed loading..</Text>;
     }
