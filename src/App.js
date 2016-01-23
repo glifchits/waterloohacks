@@ -5,7 +5,7 @@ require('./components/style/app.scss');
 
 var App = React.createClass({
 
-  render: function() {
+  render() {
     return (
       <div className="app">
         <Feed />
