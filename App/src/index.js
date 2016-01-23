@@ -42,7 +42,7 @@ class ImageFeed extends Component {
   };
 
   fetchImages() {
-    fetch("https://picsule.herokuapp.com/myapp/jsonResult/")
+    fetch("https://picsule.herokuapp.com/myapp/getImages/")
       .then(resp => resp.json())
       .then(respData => {
         console.log('images', respData);
