@@ -9,6 +9,8 @@ import React, {
   Image
 } from 'react-native';
 
+import FeedImage from './FeedImage';
+
 
 class Header extends Component {
 
@@ -64,17 +66,8 @@ class ImageFeed extends Component {
   render() {
     let content;
     if (this.state && this.state.images) {
-      content = (
-        <ScrollView>{
-          this.state.images.map(image => {
-            const url = image.images.standard_resolution.url;
-            return (
-              <Image key={image.id} source={{uri: url}} style={styles.feedImage} />
-            );
-          })
-        }
-        </ScrollView>
-      );
+      const images = this.state.images;
+      content = <ScrollView>{images.map(image => <FeedImage key={image.id} image={image} />)}</ScrollView>;
     } else {
       content = <Text>Image Feed loading..</Text>;
     }
@@ -113,8 +106,4 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-  feedImage: {
-    height: 400,
-    width: 400,
-  }
 });
