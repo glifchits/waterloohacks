@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f1006c6-c401-4886-8f24-ce58e79388b2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2014/07/05/tuolumne_1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2014/07/05/tuolumne_2.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myproject/database/database.sqlite3" afterPath="$PROJECT_DIR$/myproject/database/database.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myapp/templates/myapp/index.html" afterPath="$PROJECT_DIR$/myapp/templates/myapp/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myapp/views.py" afterPath="$PROJECT_DIR$/myapp/views.py" />
     </list>
     <ignored path="myproject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,8 +30,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myapp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.0145631">
-              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.50728154">
+              <caret line="19" column="25" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
               <folding>
                 <element signature="e#24#71#0" expanded="true" />
               </folding>
@@ -536,7 +531,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1050" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26045015" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -855,8 +850,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myapp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0145631">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.50728154">
+          <caret line="19" column="25" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
           <folding>
             <element signature="e#24#71#0" expanded="true" />
           </folding>
