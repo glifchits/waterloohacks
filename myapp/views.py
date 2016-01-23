@@ -64,7 +64,7 @@ def getImages(request):
                         ret[decoded] = value
         except:
             pass
-        list.append({"url:": d.docfile.url, "Model": ret.get("Model"), "Make": ret.get("Make"),
+        list.append({"url": d.docfile.url, "Model": ret.get("Model"), "Make": ret.get("Make"),
                       "Orientation": ret.get("Orientation"), "Date": ret.get("DateTime"),
                       "Width": ret.get("ExifImageWidth"), "Height": ret.get("ExifImageHeight"),
                       "Latitude": ret.get("Latitude"), "Longitude": ret.get("Longitude")})
