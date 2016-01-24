@@ -41,11 +41,11 @@ def fileUpload(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            createPicsule(request)
+            docId = createPicsule(request)
           #  newdoc.save()
 
             # Redirect to the document list after POST
-            return HttpResponseRedirect(reverse('fileUpload'))
+            return HttpResponse(json.dumps({'id': docId}), content_type="application/json")
     else:
         form = DocumentForm() # A empty, unbound form
     # Render list page with the documents and the form
@@ -131,11 +131,11 @@ def createPicsule(request):
         #get s&p500 data
         sandpData = urlopen(Request("https://www.quandl.com/api/v3/datasets/YAHOO/INDEX_GSPC.json?start_date=" +
                                     actualFormattedDate + "&end_date=" +
-                                    (nonTouchedDate + datetime.timedelta(days=1)).strftime("%Y-%m-%d"))).read()
-        sandpJson = json.loads(sandpData)
-        if 'data' in sandpJson and len(sandpJson.data) > 0:
-            ret["sandp500Open"] = sandpJson.data[0][1] #1 is open
-            ret["sandp500Close"] = sandpJson.data[0][4] #4 is close
+                                    (nonTouchedDate + datetime.timedelta(days=3)).strftime("%Y-%m-%d"))).read()
+        sandpJson = json.loads(sandpData)["dataset"]
+        if 'data' in sandpJson and len(sandpJson["data"]) > 0:
+            ret["sandp500Open"] = sandpJson["data"][0][1] #1 is open
+            ret["sandp500Close"] = sandpJson["data"][0][4] #4 is close
 
     newDoc.model = ret.get("Model")
     newDoc.make = ret.get("Make")
@@ -152,6 +152,7 @@ def createPicsule(request):
     newDoc.sandp500Close = ret.get("sandp500Close")
     newDoc.save(update_fields=["model", "make", "orientation", "date", "width", "height", "longitude", "latitude",
                                "top100", "weather", "sandp500Open", "sandp500Close"])
+    return newDoc.id
 
 
 def index(request):
@@ -171,7 +172,7 @@ def getImages(request):
                     "Top100": json.loads(d.top100 if d.top100 is not None else "null"),
                      "Weather": json.loads(d.weather if d.weather is not None else "null"), "id": d.id, "Mood": d.mood,
                      "Caption": d.caption, "SAndP500Open": str(d.sandp500Open), "SAndP500Close": str(d.sandp500Close),
-                     "SAndPDelta": str((d.sandp500Close/d.sandp500Open - 1)*100) + '%' if d.sandp500Close is not None
+                     "SAndPDelta": str((d.sandp500Close/d.sandp500Open - 1)*100) if d.sandp500Close is not None
                                                                                           and d.sandp500Open is not None
                      else None})
 
