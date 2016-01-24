@@ -14,20 +14,30 @@ var Icon = require('react-native-vector-icons/Ionicons');
 var FinanceContainer = React.createClass({
 
   propTypes: {
-    SAndP500Close : React.PropTypes.number, //closing price
-    SAndP500Open : React.PropTypes.number //opening price
+    SAndP500Close : React.PropTypes.string, //closing price
+    SAndP500Open : React.PropTypes.string //opening price
   },
 
 
   render() {
 
     console.log("SNP: ", this.props.SAndP500Close);
+    var SAndP500Close = !!this.props.SAndP500Close ? this.props.SAndP500Close : false;
+    var SAndP500Open = !!this.props.SAndP500Open ? this.props.SAndP500Open : false;
 
-    if (!!this.props.SAndP500Close && !!this.props.SAndP500Open) {
+    if (SAndP500Close !== 'None' && SAndP500Open !== 'None') {
       var delta = (this.props.SAndP500Close - this.props.SAndP500Open);
-      var change = delta / this.props.SAndP500Open;
-      var color = delta < 0 ? "#c00" : "#0c0";
-      var arrow = delta < 0 ? "arrow-down-b" : "#arrow-up-b";
+
+      var change, color, arrow;
+      if (delta < 0.0001) { //might as well be even
+        change = 'Even';
+        color = '#000';
+        arrow = 'minus-round';
+      } else {
+        change = `${delta / this.props.SAndP500Open}%`;
+        color = delta < 0 ? "#c00" : "#0c0";
+        arrow = delta < 0 ? "arrow-down-b" : "arrow-up-b";
+      }
 
       return (
         <View style={styles.financeContainer}>
@@ -37,7 +47,7 @@ var FinanceContainer = React.createClass({
             color={color}
             size={180}
             style={styles.direction}/>
-          <Text style={styles.percentage}>{`${change}%`}</Text>
+          <Text style={styles.percentage}>{`${change}`}</Text>
         </View>
       );
     } else { //no data

@@ -36,8 +36,8 @@ var Temperature = React.createClass({
   render() {
     return (
       <View style={styles.temperatureContainer}>
-        <Text style={styles.temperatureValue}>{`${this.props.temp}°`}<Text style={styles.temperatureValueUnit}>C</Text></Text>
-        <Text style={styles.feltLike}>{`Felt like ${this.props.feelsLike}°`}<Text style={styles.feltLikeValueUnit}>C</Text></Text>
+        <Text style={styles.temperatureValue}>{`${this.props.temp}°`}<Text style={styles.temperatureValueUnit}>F</Text></Text>
+        <Text style={styles.feltLike}>{`Felt like ${this.props.feelsLike}°`}<Text style={styles.feltLikeValueUnit}>F</Text></Text>
       </View>
     );
   }
@@ -46,11 +46,15 @@ var Temperature = React.createClass({
 
 var WeatherIcon = React.createClass({
 
+  propTypes: {
+    icon : React.PropTypes.string, //icon du jour
+  },
+
   render() {
     return (
       <View style={styles.weatherIcon}>
         <Icon 
-          name="ios-rainy-outline"
+          name={this.props.icon}
           color="#000"
           size={180}
           style={styles.weatherIconLogo}/>
@@ -67,6 +71,7 @@ var WeatherContainer = React.createClass({
   },
 
   render() {
+    console.log("WEATHER: ", this.props.weather);
 
     if (!!this.props.weather) {
       var data = this.props.weather;
@@ -75,12 +80,27 @@ var WeatherContainer = React.createClass({
       var windSpeed = data.windSpdAvg;
       var humidity = data.relHumAvg;
       var precipitation = data.precip;
+      var snowfall = data.snowfall;
+      var cldCvrAvg = data.cldCvrAvg;
 
+      var icon;
+
+      if (snowfall > 1) {
+        icon = "ios-snowy";
+      } else if (precipitation > 1) {
+        icon = "ios-rainy-outline";
+      } else if (cldCvrAvg > 30) {
+        icon = "ios-partlysunny-outline";
+      } else if (cldCvrAvg > 70) {
+        icon = "ios-cloudy-outline";
+      } else {
+        icon = "ios-sunny-outline";
+      }
       console.log("WEATHER: ", this.props.weather);
       return (
         <View style={styles.weatherContainer}>
           <View style={styles.topMetrics}>
-            <WeatherIcon />
+            <WeatherIcon icon={icon}/>
             <Temperature temp={temp} feelsLike={feelsLike}/>
           </View>
           <BottomMetrics windSpeed={windSpeed} humidity={humidity} precipitation={precipitation}/>

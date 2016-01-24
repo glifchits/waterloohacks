@@ -15,6 +15,7 @@ var WeatherContainer = require('./WeatherContainer');
 var ImageContainer = require('./ImageContainer');
 var MusicContainer = require('./MusicContainer');
 var FinanceContainer = require('./FinanceContainer');
+var CaptionToolbar = require('./CaptionToolbar');
 
 
 var FeedPost = React.createClass({
@@ -66,6 +67,7 @@ var FeedPost = React.createClass({
           {view}
         </View>
         <PostToolbar onSelectIcon={this.onSelectIcon}/>
+        <CaptionToolbar />
       </View>
     );
   }
@@ -78,6 +80,8 @@ const styles = StyleSheet.create({
 
   mainContainer:{
     flex: 1,
+    paddingTop: 10,
+    paddingBottom: 10
   },
 
   contentContainer:{
