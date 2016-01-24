@@ -1,6 +1,7 @@
 beautifulsoup4==4.4.1
 billboard.py==1.0.2
 Django==1.9.1
+geopy==1.11.0
 gunicorn==19.4.5
 http://effbot.org/media/downloads/Imaging-1.1.7.tar.gz
 requests==2.9.1
