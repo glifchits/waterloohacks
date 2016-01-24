@@ -9,6 +9,7 @@ import React, {
   Image,
   ScrollView,
   TouchableHighlight,
+  NativeModules,
 } from 'react-native';
 
 import ActionButton from 'react-native-action-button';
@@ -18,6 +19,32 @@ class CameraRollSelector extends Component {
 
   onPress(image) {
     console.log('on image press', image);
+    console.log('native modules', NativeModules);
+    console.log('FileTransfer', NativeModules.FileTransfer);
+
+    let fileName = image.uri;
+    let idx = fileName.indexOf('id=') + 3;
+    let fileID = fileName.substring(idx, idx+36);
+
+    var obj = {
+      uri: image.uri, // either an 'assets-library' url (for files from photo library) or an image dataURL
+      uploadUrl: 'https://picsule.herokuapp.com/myapp/',
+      fileName: fileID,
+      fileKey: 'docfile', // (default="file") the name of the field in the POST form data under which to store the file
+      mimeType: undefined, //'multipart/form-data',
+      headers: undefined,
+      data: undefined // {}
+        // whatever properties you wish to send in the request
+        // along with the uploaded file
+    };
+    console.log('obj', obj);
+    NativeModules.FileTransfer.upload(obj, (err, res) => {
+      console.log('err', err, 'res', res);
+      // handle response
+      // it is an object with 'status' and 'data' properties
+      // if the file path protocol is not supported the status will be 0
+      // and the request won't be made at all
+    });
   }
 
   render() {
@@ -118,4 +145,3 @@ export default class PhotoAccess extends Component {
 const styles = StyleSheet.create({
 
 });
-
