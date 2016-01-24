@@ -17,6 +17,24 @@ import billboard
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
+def setMood(request):
+    docId = request.POST.get('id', None)
+    mood = request.POST.get('mood', None)
+    caption = request.POST.get('caption', None)
+
+    if docId is None:
+        return json.dumps({'status':'error: invalid id'})
+
+    doc = Document.objects.get(id=docId)
+    if mood:
+        doc.mood = mood
+    if caption:
+        doc.caption = caption
+    doc.save(update_fields=["mood", "caption"])
+    return json.dumps({'status': 'ok'})
+
+
+@csrf_exempt
 def fileUpload(request):
     # Handle file upload
     if request.method == 'POST':
@@ -41,6 +59,7 @@ def createPicsule(request):
     docfile = request.FILES['docfile']
     newDoc = Document(docfile=docfile)
     newDoc.save()
+    newDoc = Document.objects.get(id=newDoc.id)
     ret = {}
     try:
         imageObj = Image.open('myproject' + newDoc.docfile.url)
@@ -104,17 +123,30 @@ def createPicsule(request):
                 except:
                     pass
 
+        #get s&p500 data
+        sandpData = urlopen(Request("https://www.quandl.com/api/v3/datasets/YAHOO/INDEX_GSPC.json?start_date=" +
+                                    formattedDate + "&end_date=" + formattedDate)).read()
+        sandpJson = json.loads(sandpData)
+        print sandpData
+        if 'data' in sandpJson and len(sandpJson.data) >= 5:
+            ret["sandp500Open"] = sandpJson.data[1] #1 is open
+            ret["sandp500Close"] = sandpJson.data[4] #4 is close
+
     newDoc.model = ret.get("Model")
     newDoc.make = ret.get("Make")
     newDoc.orientation = ret.get("Orientation")
-    newDoc.date = datetime.datetime.strptime(ret.get("DateTime"), '%Y:%m:%d %H:%M:%S')
+    newDoc.date = datetime.datetime.strptime(ret.get("DateTime"), '%Y:%m:%d %H:%M:%S') if ret.get("DateTime") is not \
+                                                                                          None else datetime.datetime.today()
     newDoc.width = ret.get("ExifImageWidth")
     newDoc.height = ret.get("ExifImageHeight")
     newDoc.longitude = ret.get("Longitude")
     newDoc.latitude = ret.get("Latitude")
     newDoc.top100 = json.dumps(ret.get("Top100"))
     newDoc.weather = json.dumps(ret.get("Weather"))
-    newDoc.save(update_fields=["model", "make", "orientation", "date", "width", "height", "longitude", "latitude", "top100", "weather"])
+    newDoc.sandp500Open = ret.get("sandp500Open")
+    newDoc.sandp500Close = ret.get("sandp500Close")
+    newDoc.save(update_fields=["model", "make", "orientation", "date", "width", "height", "longitude", "latitude",
+                               "top100", "weather", "sandp500Open", "sandp500Close"])
 
 
 def index(request):
@@ -127,14 +159,16 @@ def getImages(request):
     # Render list page with the documents and the form
     list = []
     for d in documents:
-        print d.top100
-        print d.weather
         list.append({"url": d.docfile.url, "Model": d.model, "Make": d.make,
                       "Orientation": d.orientation, "Date": str(d.date),
                       "Width": d.width, "Height": d.height,
                       "Latitude": str(d.latitude), "Longitude": str(d.longitude),
                     "Top100": json.loads(d.top100 if d.top100 is not None else "null"),
-                     "Weather": json.loads(d.weather if d.weather is not None else "null")})
+                     "Weather": json.loads(d.weather if d.weather is not None else "null"), "id": d.id, "Mood": d.mood,
+                     "Caption": d.caption, "SAndP500Open": str(d.sandp500Open), "SAndP500Close": str(d.sandp500Close),
+                     "SAndPDelta": str((d.sandp500Close/d.sandp500Open - 1)*100) + '%' if d.sandp500Close is not None
+                                                                                          and d.sandp500Open is not None
+                     else None})
 
     return HttpResponse(json.dumps(list), content_type="application/json")
 '''  list = [];
