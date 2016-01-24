@@ -35,7 +35,6 @@ var FeedPost = React.createClass({
 
   getView() {
     var data = this.props.data;
-    console.log("FEEDPOSTDATA: ", data);
     switch(this.state.view) {
         case 'mood':
             return (<MoodContainer />);
