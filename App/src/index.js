@@ -10,7 +10,7 @@ import React, {
   CameraRoll,
 } from 'react-native';
 
-import Footer from './Footer';
+import PhotoAccess from './PhotoAccess';
 import FeedImage from './FeedImage';
 
 
@@ -80,7 +80,7 @@ export default class App extends Component {
       <View style={styles.container}>
         <Header />
         <ImageFeed />
-        <Footer />
+        <PhotoAccess />
       </View>
     );
   }
