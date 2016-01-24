@@ -10,6 +10,7 @@ import React, {
 } from 'react-native';
 
 import FeedPost from './FeedPost';
+import PhotoAccess from './PhotoAccess';
 var EntypoIcon = require('react-native-vector-icons/Entypo');
 var EvilIcon = require('react-native-vector-icons/EvilIcons');
 
@@ -28,7 +29,7 @@ class Header extends Component {
   render() {
     return (
       <View style={this.style}>
-        <EntypoIcon name="star" size={20} style={styles.logo}/> 
+        <EntypoIcon name="star" size={20} style={styles.logo}/>
       </View>
     );
   }
@@ -79,6 +80,7 @@ export default class App extends Component {
       <View style={styles.container}>
         <Header />
         <Feed />
+        <PhotoAccess />
       </View>
     );
   }
