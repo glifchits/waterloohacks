@@ -5,74 +5,83 @@ import React, {
   StyleSheet,
   Image,
   View,
-  Text
+  Text,
+  TouchableOpacity
 } from 'react-native';
 
-var Icon = require('react-native-vector-icons/Ionicons');
+var PostToolbar = require('./PostToolbar');
+var MoodContainer = require('./MoodContainer');
+var WeatherContainer = require('./WeatherContainer');
+var ImageContainer = require('./ImageContainer');
+var MusicContainer = require('./MusicContainer');
+var FinanceContainer = require('./FinanceContainer');
 
-class PostToolbar extends Component {
+
+var FeedImage = React.createClass({
+
+  getInitialState() {
+    return {
+      view : 'image'
+    };
+  },
+
+  onSelectIcon(selection) {
+    this.setState({ view : selection });
+  },
+
+  getView() {
+    switch(this.state.view) {
+        case 'mood':
+            return (<MoodContainer />);
+            break;
+        case 'weather':
+            return (<WeatherContainer />);
+            break;
+        case 'image':
+            return (<ImageContainer image={this.props.image}/>);
+            break;
+        case 'music':
+            return (<MusicContainer/>);
+            break;
+        case 'finance':
+            return (<FinanceContainer/>);
+            break;
+        default:
+            return (<ImageContainer />);
+    }
+  },
 
   render() {
+
+    var view = this.getView();
+
     return (
-      <View style={styles.toolbar}>
-        <Text style={styles.toolbarButton}>
-          <Icon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
-        </Text>
-        <Text style={styles.toolbarButton}>
-          <Icon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
-        </Text>
-        <Text style={styles.toolbarButton}>
-          <Icon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
-        </Text>
-        <Text style={styles.toolbarButton}>
-          <Icon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
-        </Text>
-      </View>
-    );
-  };
-
-}
-
-
-export default class FeedImage extends Component {
-
-  render() {
-    const image = this.props.image;
-    const url = `https://picsule.herokuapp.com${image.url}`;
-    console.log("URL", url);
-    return (
-      <View>
-          <Image source={{uri: url}} style={styles.feedImage} />
-          <PostToolbar/>
+      <View style={styles.mainContainer}>
+        <View style={styles.contentContainer}>
+          {view}
+        </View>
+        <PostToolbar onSelectIcon={this.onSelectIcon}/>
       </View>
     );
   }
 
-}
+});
+
 
 
 const styles = StyleSheet.create({
 
-  toolbar:{
-    backgroundColor:'#81c04d',
-    paddingTop:10,
-    paddingBottom:10,
-    flexDirection:'row'
+  mainContainer:{
+    flex: 1,
   },
 
-  toolbarButton:{
-    textAlign:'center',
-    alignSelf: 'stretch',
-    width: 50,
-  },
-
-  toolbarButtonIcon:{
-    color:'#fff',
-  },
-
-  feedImage: {
+  contentContainer:{
+    height: 400,
     width: 400,
-    height: 400
-  }
+    padding: 15
+  },
 
 });
+
+
+module.exports = FeedImage;

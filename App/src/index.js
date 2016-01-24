@@ -10,6 +10,8 @@ import React, {
 } from 'react-native';
 
 import FeedImage from './FeedImage';
+var EntypoIcon = require('react-native-vector-icons/Entypo');
+var EvilIcon = require('react-native-vector-icons/EvilIcons');
 
 
 class Header extends Component {
@@ -26,7 +28,7 @@ class Header extends Component {
   render() {
     return (
       <View style={this.style}>
-        <Text>Jolt</Text>
+        <EntypoIcon name="star" size={20} style={styles.logo}/> 
       </View>
     );
   }
@@ -61,7 +63,7 @@ class ImageFeed extends Component {
       const images = this.state.images;
       content = <ScrollView>{images.map((image, idx) => <FeedImage key={idx} image={image} />)}</ScrollView>;
     } else {
-      content = <Text>Image Feed loading..</Text>;
+      content = <Text><EvilIcon name="spinner" size={50} /></Text>;
     }
 
     return (
@@ -84,9 +86,7 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1
   },
   welcome: {
     fontSize: 20,
@@ -98,4 +98,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  logo: {
+    color: '#fff'
+  }
 });
