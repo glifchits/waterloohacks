@@ -30,6 +30,8 @@ def fileUpload(request):
 
             # Redirect to the document list after POST
             return HttpResponseRedirect(reverse('fileUpload'))
+        else:
+            print 'form is not valid'
     else:
         form = DocumentForm() # A empty, unbound form
     # Render list page with the documents and the form
@@ -41,9 +43,11 @@ def fileUpload(request):
 
 
 def createPicsule(request):
+    print 'create picsule'
     docfile = request.FILES['docfile']
     newDoc = Document(docfile=docfile)
     newDoc.save()
+    print 'newDoc,', newDoc
     ret = {}
     try:
         imageObj = Image.open('myproject' + newDoc.docfile.url)
