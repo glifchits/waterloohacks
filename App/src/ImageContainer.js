@@ -13,7 +13,6 @@ var ImageContainer = React.createClass({
 
   render() {
     const url = `https://picsule.herokuapp.com${this.props.imageURL}`;
-    console.log("IMAGECONT  DATA: ", url);
     return (
       <Image source={{uri: url}} style={styles.image} />
     );

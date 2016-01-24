@@ -14,27 +14,107 @@ from myapp.forms import DocumentForm
 from urllib2 import Request, urlopen, URLError
 import requests
 import billboard
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def fileUpload(request):
     # Handle file upload
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
-            newdoc = Document(docfile = request.FILES['docfile'])
-            newdoc.save()
+            createPicsule(request)
+          #  newdoc.save()
 
             # Redirect to the document list after POST
             return HttpResponseRedirect(reverse('fileUpload'))
     else:
         form = DocumentForm() # A empty, unbound form
-    # Load documents for the list page
-    documents = Document.objects.all()
     # Render list page with the documents and the form
     return render_to_response(
             'myapp/fileUpload.html',
-        {'documents': documents, 'form': form},
+        {'form': form},
         context_instance=RequestContext(request)
     )
+
+
+def createPicsule(request):
+    docfile = request.FILES['docfile']
+    newDoc = Document(docfile=docfile)
+    newDoc.save()
+    ret = {}
+    try:
+        imageObj = Image.open('myproject' + newDoc.docfile.url)
+        info = imageObj._getexif()
+        if info is not None:
+            for tag, value in info.items():
+                decoded = TAGS.get(tag, tag)
+                if decoded == "GPSInfo":
+                    gps_data = {}
+                    for t in value:
+                        sub_decoded = GPSTAGS.get(t, t)
+                        gps_data[sub_decoded] = value[t]
+                    lat,long = get_lat_lon(gps_data)
+                    ret["Latitude"] = lat;
+                    ret["Longitude"] = long;
+                else:
+                    ret[decoded] = value
+    except:
+        pass
+
+    #get top songs
+    date = ret.get("DateTime")
+    chart = None
+    if date is not None:
+        dateObj = datetime.datetime.strptime(date, '%Y:%m:%d %H:%M:%S')
+        weekday = dateObj.weekday() #billboard only supports links on a saturday
+        if weekday <= 1 or weekday == 6:
+            while dateObj.weekday() != 5:
+                dateObj = dateObj + datetime.timedelta(days=-1)
+        else:
+            while dateObj.weekday() != 5:
+                dateObj = dateObj + datetime.timedelta(days=1)
+        formattedDate = dateObj.strftime("%Y-%m-%d")
+        chart = billboard.ChartData('hot-100', formattedDate)
+        ret["Top100"] = [str(e) for e in chart.entries[:10]]
+
+        #get weather
+        latitude = ret.get("Latitude")
+        longitude = ret.get("Longitude")
+        if latitude is not None and longitude is not None:
+           locObj = urlopen(Request("http://www.geoplugin.net/extras/postalcode.gp?lat=" + str(latitude) +
+                                    "&long=" + str(longitude) + "&format=json")).read()
+           jsonObj = json.loads(locObj)
+           if type(jsonObj) is dict:
+              #  print jsonObj
+                postalCode = jsonObj.get("geoplugin_postCode")
+                countryCode = jsonObj.get("geoplugin_countryCode")
+              #  print postalCode
+            #    print countryCode
+                #print formattedDate
+                try:
+                    weatherObj = urlopen(Request("https://api.weathersource.com/v1/4d6060d10090464668ef/postal_codes/" +
+                                             postalCode + "," + countryCode + "/forecast.json?period=day&" +
+                                            "timestamp=" + formattedDate + "&fields=tempAvg,precip,snowfall," +
+                                            "windSpdAvg,cldCvrAvg,dewPtAvg,feelsLikeAvg,relHumAvg,sfcPresAvg"))\
+                    .read()
+
+                    jsonWeatherObj = json.loads(weatherObj)
+                    if len(jsonWeatherObj) > 0:
+                        ret["Weather"] = jsonWeatherObj[0]
+                except:
+                    pass
+
+    newDoc.model = ret.get("Model")
+    newDoc.make = ret.get("Make")
+    newDoc.orientation = ret.get("Orientation")
+    newDoc.date = datetime.datetime.strptime(ret.get("DateTime"), '%Y:%m:%d %H:%M:%S')
+    newDoc.width = ret.get("ExifImageWidth")
+    newDoc.height = ret.get("ExifImageHeight")
+    newDoc.longitude = ret.get("Longitude")
+    newDoc.latitude = ret.get("Latitude")
+    newDoc.top100 = json.dumps(ret.get("Top100"))
+    newDoc.weather = json.dumps(ret.get("Weather"))
+    newDoc.save(update_fields=["model", "make", "orientation", "date", "width", "height", "longitude", "latitude", "top100", "weather"])
 
 
 def index(request):
@@ -45,8 +125,19 @@ def getImages(request):
     # Load documents for the list page
     documents = Document.objects.all()
     # Render list page with the documents and the form
-    #for d in documents:
-    list = [];
+    list = []
+    for d in documents:
+        print d.top100
+        print d.weather
+        list.append({"url": d.docfile.url, "Model": d.model, "Make": d.make,
+                      "Orientation": d.orientation, "Date": str(d.date),
+                      "Width": d.width, "Height": d.height,
+                      "Latitude": str(d.latitude), "Longitude": str(d.longitude),
+                    "Top100": json.loads(d.top100 if d.top100 is not None else "null"),
+                     "Weather": json.loads(d.weather if d.weather is not None else "null")})
+
+    return HttpResponse(json.dumps(list), content_type="application/json")
+'''  list = [];
     for d in documents:
         ret = {}
         try:
@@ -80,23 +171,45 @@ def getImages(request):
             else:
                 while dateObj.weekday() != 5:
                     dateObj = dateObj + datetime.timedelta(days=1)
-            chart = billboard.ChartData('hot-100', dateObj.strftime("%Y-%m-%d"))
+            formattedDate = dateObj.strftime("%Y-%m-%d")
+            chart = billboard.ChartData('hot-100', formattedDate)
             ret["Top100"] = [str(e) for e in chart.entries[:10]]
 
         #get weather
-         #   latitude = ret.get("Latitude")
-          #  longitude = ret.get("Longitude")
-          #  if latitude is not None and longitude is not None:
-               # location = geolocator.reverse(str(latitude) + ", " + str(longitude))
+            latitude = ret.get("Latitude")
+            longitude = ret.get("Longitude")
+            if latitude is not None and longitude is not None:
+               locObj = urlopen(Request("http://www.geoplugin.net/extras/postalcode.gp?lat=" + str(latitude) +
+                                        "&long=" + str(longitude) + "&format=json")).read()
+               jsonObj = json.loads(locObj)
+               if type(jsonObj) is dict:
+                    print jsonObj
+                    postalCode = jsonObj.get("geoplugin_postCode")
+                    countryCode = jsonObj.get("geoplugin_countryCode")
+                    print postalCode
+                    print countryCode
+                    print formattedDate
+                    try:
+                        weatherObj = urlopen(Request("https://api.weathersource.com/v1/4d6060d10090464668ef/postal_codes/" +
+                                                 postalCode + "," + countryCode + "/forecast.json?period=day&" +
+                                                "timestamp=" + formattedDate + "&fields=tempAvg,precip,snowfall," +
+                                                "windSpdAvg,cldCvrAvg,dewPtAvg,feelsLikeAvg,relHumAvg,sfcPresAvg"))\
+                        .read()
+
+                        jsonWeatherObj = json.loads(weatherObj)
+                        if len(jsonWeatherObj) > 0:
+                            ret["Weather"] = jsonWeatherObj[0]
+                    except:
+                        pass
+
 
         list.append({"url": d.docfile.url, "Model": ret.get("Model"), "Make": ret.get("Make"),
                       "Orientation": ret.get("Orientation"), "Date": ret.get("DateTime"),
                       "Width": ret.get("ExifImageWidth"), "Height": ret.get("ExifImageHeight"),
                       "Latitude": ret.get("Latitude"), "Longitude": ret.get("Longitude"),
-                    "Top100": ret.get("Top100")})
+                    "Top100": ret.get("Top100"), "Weather": ret.get("Weather")})
 
-    return HttpResponse(json.dumps(list), content_type="application/json")
-
+    return HttpResponse(json.dumps(list), content_type="application/json")'''
 
 def _get_if_exist(data, key):
     if key in data:
