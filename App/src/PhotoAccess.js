@@ -31,7 +31,7 @@ class CameraRollSelector extends Component {
       uploadUrl: 'https://picsule.herokuapp.com/myapp/',
       fileName: fileID,
       fileKey: 'docfile', // (default="file") the name of the field in the POST form data under which to store the file
-      mimeType: undefined, //'multipart/form-data',
+      mimeType: 'image/png', //'multipart/form-data',
       headers: undefined,
       data: undefined // {}
         // whatever properties you wish to send in the request
@@ -40,7 +40,7 @@ class CameraRollSelector extends Component {
     console.log('obj', obj);
     NativeModules.FileTransfer.upload(obj, (err, res) => {
       console.log('err', err, 'res', res);
-      if (res.status === 0) {
+      if (res.status === 200) {
         this.setState({ modalVisible: true }, this.props.hideSelector);
       } else {
         console.error(err);
