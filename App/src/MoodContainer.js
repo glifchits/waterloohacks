@@ -76,6 +76,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor:'#fff',
     flexDirection:'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
   moodButton: {
