@@ -9,7 +9,9 @@ import React, {
   Image
 } from 'react-native';
 
-import FeedImage from './FeedImage';
+import FeedPost from './FeedPost';
+var EntypoIcon = require('react-native-vector-icons/Entypo');
+var EvilIcon = require('react-native-vector-icons/EvilIcons');
 
 
 class Header extends Component {
@@ -26,14 +28,14 @@ class Header extends Component {
   render() {
     return (
       <View style={this.style}>
-        <Text>Jolt</Text>
+        <EntypoIcon name="star" size={20} style={styles.logo}/> 
       </View>
     );
   }
 }
 
 
-class ImageFeed extends Component {
+class Feed extends Component {
 
   style = {
     flex: 1
@@ -43,9 +45,9 @@ class ImageFeed extends Component {
     fetch("https://picsule.herokuapp.com/myapp/getImages/")
       .then(resp => resp.json())
       .then(respData => {
-        console.log('images', respData);
+        console.log('data', respData);
         this.setState({
-          images: respData,
+          data: respData,
         });
       })
       .done();
@@ -57,11 +59,11 @@ class ImageFeed extends Component {
 
   render() {
     let content;
-    if (this.state && this.state.images) {
-      const images = this.state.images;
-      content = <ScrollView>{images.map((image, idx) => <FeedImage key={idx} image={image} />)}</ScrollView>;
+    if (this.state && this.state.data) {
+      const data = this.state.data;
+      content = <ScrollView>{data.map((data, idx) => <FeedPost key={idx} data={data} />)}</ScrollView>;
     } else {
-      content = <Text>Image Feed loading..</Text>;
+      content = <Text><EvilIcon name="spinner" size={50} /></Text>;
     }
 
     return (
@@ -76,7 +78,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <Header />
-        <ImageFeed />
+        <Feed />
       </View>
     );
   }
@@ -84,9 +86,7 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1
   },
   welcome: {
     fontSize: 20,
@@ -98,4 +98,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  logo: {
+    color: '#fff'
+  }
 });
