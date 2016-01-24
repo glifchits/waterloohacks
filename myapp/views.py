@@ -8,8 +8,12 @@ import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 import json
 from myapp.models import Document
+import time
+import datetime
 from myapp.forms import DocumentForm
-
+from urllib2 import Request, urlopen, URLError
+import requests
+import billboard
 
 def fileUpload(request):
     # Handle file upload
@@ -41,7 +45,6 @@ def getImages(request):
     # Load documents for the list page
     documents = Document.objects.all()
     # Render list page with the documents and the form
-
     #for d in documents:
     list = [];
     for d in documents:
@@ -64,10 +67,33 @@ def getImages(request):
                         ret[decoded] = value
         except:
             pass
+
+        #get top songs
+        date = ret.get("DateTime")
+        chart = None
+        if date is not None:
+            dateObj = datetime.datetime.strptime(date, '%Y:%m:%d %H:%M:%S')
+            weekday = dateObj.weekday() #billboard only supports links on a saturday
+            if weekday <= 1 or weekday == 6:
+                while dateObj.weekday() != 5:
+                    dateObj = dateObj + datetime.timedelta(days=-1)
+            else:
+                while dateObj.weekday() != 5:
+                    dateObj = dateObj + datetime.timedelta(days=1)
+            chart = billboard.ChartData('hot-100', dateObj.strftime("%Y-%m-%d"))
+            ret["Top100"] = [str(e) for e in chart.entries[:10]]
+
+        #get weather
+         #   latitude = ret.get("Latitude")
+          #  longitude = ret.get("Longitude")
+          #  if latitude is not None and longitude is not None:
+               # location = geolocator.reverse(str(latitude) + ", " + str(longitude))
+
         list.append({"url": d.docfile.url, "Model": ret.get("Model"), "Make": ret.get("Make"),
                       "Orientation": ret.get("Orientation"), "Date": ret.get("DateTime"),
                       "Width": ret.get("ExifImageWidth"), "Height": ret.get("ExifImageHeight"),
-                      "Latitude": ret.get("Latitude"), "Longitude": ret.get("Longitude")})
+                      "Latitude": ret.get("Latitude"), "Longitude": ret.get("Longitude"),
+                    "Top100": ret.get("Top100")})
 
     return HttpResponse(json.dumps(list), content_type="application/json")
 
