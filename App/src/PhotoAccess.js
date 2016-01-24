@@ -40,6 +40,11 @@ class CameraRollSelector extends Component {
     console.log('obj', obj);
     NativeModules.FileTransfer.upload(obj, (err, res) => {
       console.log('err', err, 'res', res);
+      if (res.status === 0) {
+        this.setState({ modalVisible: true }, this.props.hideSelector);
+      } else {
+        console.error(err);
+      }
       // handle response
       // it is an object with 'status' and 'data' properties
       // if the file path protocol is not supported the status will be 0
@@ -110,6 +115,10 @@ export default class PhotoAccess extends Component {
     });
   }
 
+  hideSelector() {
+    this.setState({ showSelector: false });
+  }
+
   onPhotosFetchedSuccess(data) {
     var photos = data.edges.map((asset) => {
       return asset.node.image;
@@ -134,7 +143,7 @@ export default class PhotoAccess extends Component {
 
   render() {
     const selector = (this.state.showSelector) ?
-      <CameraRollSelector images={this.state.photos} /> :
+      <CameraRollSelector images={this.state.photos} hideSelector={this.hideSelector.bind(this)}/> :
       <ActionButton buttonColor="red" onPress={this.onPress.bind(this)} />;
     return selector;
   }
