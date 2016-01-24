@@ -14,6 +14,8 @@ import React, {
 
 import ActionButton from 'react-native-action-button';
 
+import MoodInput from './MoodInput';
+
 
 class CameraRollSelector extends Component {
 
@@ -38,10 +40,13 @@ class CameraRollSelector extends Component {
         // along with the uploaded file
     };
     console.log('obj', obj);
+
     NativeModules.FileTransfer.upload(obj, (err, res) => {
       console.log('err', err, 'res', res);
       if (res.status === 200) {
         this.setState({ modalVisible: true }, this.props.hideSelector);
+        let data = JSON.parse(res.data);
+        this.props.enableMood(data.id);
       } else {
         console.error(err);
       }
@@ -105,18 +110,26 @@ export default class PhotoAccess extends Component {
 
   state = {
     showSelector: false,
+    showMood: false,
+    id: null,
     photos: []
   };
 
   onPress() {
     this.fetchPics(16);
-    this.setState({
-      showSelector: true
-    });
+    this.setState({ showSelector: true });
   }
 
   hideSelector() {
     this.setState({ showSelector: false });
+  }
+
+  enableMood(id) {
+    this.setState({ showMood: true, id: id });
+  }
+
+  hideMood() {
+    this.setState({ showMood: false });
   }
 
   onPhotosFetchedSuccess(data) {
@@ -142,10 +155,21 @@ export default class PhotoAccess extends Component {
   }
 
   render() {
-    const selector = (this.state.showSelector) ?
-      <CameraRollSelector images={this.state.photos} hideSelector={this.hideSelector.bind(this)}/> :
-      <ActionButton buttonColor="red" onPress={this.onPress.bind(this)} />;
-    return selector;
+    let content;
+    if (this.state.showSelector) {
+      content = (
+        <CameraRollSelector
+          images={this.state.photos}
+          hideSelector={this.hideSelector.bind(this)}
+          enableMood={this.enableMood.bind(this)}
+        />
+      );
+    } else if (this.state.showMood) {
+      content = <MoodInput postID={this.state.id} hideMood={this.hideMood.bind(this)}/>;
+    } else {
+      content = <ActionButton buttonColor="red" onPress={this.onPress.bind(this)} />;
+    }
+    return content;
   }
 
 }
