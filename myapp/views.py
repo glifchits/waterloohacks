@@ -16,6 +16,18 @@ import requests
 import billboard
 from django.views.decorators.csrf import csrf_exempt
 
+
+def setMood(request):
+    docId = request.GET['id']
+    mood = request.GET['mood']
+    caption = request.GET['caption']
+    doc = Document.objects.get(id=docId)
+    doc.mood = mood
+    doc.caption = caption
+    doc.save(update_fields=["mood", "caption"])
+    return json.dumps({'status': 'ok'})
+
+
 @csrf_exempt
 def fileUpload(request):
     print 'called file upload'
@@ -47,6 +59,7 @@ def createPicsule(request):
     docfile = request.FILES['docfile']
     newDoc = Document(docfile=docfile)
     newDoc.save()
+    newDoc = Document.objects.get(id=newDoc.id)
     print 'newDoc,', newDoc
     ret = {}
     try:
@@ -143,7 +156,8 @@ def getImages(request):
                       "Width": d.width, "Height": d.height,
                       "Latitude": str(d.latitude), "Longitude": str(d.longitude),
                     "Top100": json.loads(d.top100 if d.top100 is not None else "null"),
-                     "Weather": json.loads(d.weather if d.weather is not None else "null")})
+                     "Weather": json.loads(d.weather if d.weather is not None else "null"), "id": d.id, "Mood": d.mood,
+                     "Caption": d.caption})
 
     return HttpResponse(json.dumps(list), content_type="application/json")
 '''  list = [];

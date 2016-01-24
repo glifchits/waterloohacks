@@ -14,3 +14,5 @@ class Document(models.Model):
     latitude = models.DecimalField(max_digits=19, decimal_places=10, null=True)
     top100 = models.TextField(null=True, blank=True)
     weather = models.TextField(null=True, blank=True)
+    mood = models.TextField(null=True)
+    caption = models.CharField(max_length=255, null=True, blank=True)
