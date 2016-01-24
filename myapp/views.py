@@ -18,12 +18,18 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def setMood(request):
-    docId = request.GET['id']
-    mood = request.GET['mood']
-    caption = request.GET['caption']
+    docId = request.POST.get('id', None)
+    mood = request.POST.get('mood', None)
+    caption = request.POST.get('caption', None)
+
+    if docId is None:
+        return json.dumps({'status':'error: invalid id'})
+
     doc = Document.objects.get(id=docId)
-    doc.mood = mood
-    doc.caption = caption
+    if mood:
+        doc.mood = mood
+    if caption:
+        doc.caption = caption
     doc.save(update_fields=["mood", "caption"])
     return json.dumps({'status': 'ok'})
 
