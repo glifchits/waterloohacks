@@ -7,7 +7,6 @@
         <body>
                 <!-- Upload form. Note enctype attribute! -->
                 <form action="{% url "fileUpload" %}" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
                         <p>{{ form.non_field_errors }}</p>
                         <p>{{ form.docfile.label_tag }} </p>
                         <p>
