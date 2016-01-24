@@ -2,17 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f1006c6-c401-4886-8f24-ce58e79388b2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/24/1391292711403.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/24/IMG_2265.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/24/IMG_8992_DYfGe2d.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/24/IMG_8992_WPLhlPG.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/24/IMG_8992_uYHTv8m.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/24/IMG_8992_vT1XdWP.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/24/IMG_8992_xSLfrP4.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/24/IMG_9410_u0xGsDV.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/24/IMG_9410_vArWnXr.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/24/IMG_9607_1IDHpnk.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/24/IMG_9607_i0iT8jo.JPG" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myproject/database/database.sqlite3" afterPath="$PROJECT_DIR$/myproject/database/database.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myapp/views.py" afterPath="$PROJECT_DIR$/myapp/views.py" />
     </list>
@@ -114,7 +103,7 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myapp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.49131513">
+            <state vertical-scroll-proportion="0.16377172">
               <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
               <folding>
                 <element signature="e#24#71#0" expanded="true" />
@@ -551,7 +540,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="0" width="1938" height="1032" extended-state="1" />
+    <frame x="-9" y="0" width="1938" height="1032" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26045015" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -880,7 +869,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myapp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49131513">
+        <state vertical-scroll-proportion="0.16377172">
           <caret line="18" column="12" selection-start-line="18" selection-start-column="12" selection-end-line="18" selection-end-column="12" />
           <folding>
             <element signature="e#24#71#0" expanded="true" />

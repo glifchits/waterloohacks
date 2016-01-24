@@ -23,7 +23,7 @@ def setMood(request):
     caption = request.POST.get('caption', None)
 
     if docId is None:
-        return json.dumps({'status':'error: invalid id'})
+        return HttpResponse(json.dumps({'status': 'error: invalid id'}), content_type="application/json")
 
     doc = Document.objects.get(id=docId)
     if mood:
@@ -31,7 +31,7 @@ def setMood(request):
     if caption:
         doc.caption = caption
     doc.save(update_fields=["mood", "caption"])
-    return json.dumps({'status': 'ok'})
+    return HttpResponse(json.dumps({'status': 'ok'}), content_type="application/json")
 
 
 @csrf_exempt
