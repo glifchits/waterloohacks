@@ -61,7 +61,6 @@ class Feed extends Component {
     let content;
     if (this.state && this.state.data) {
       const data = this.state.data;
-      console.log("DATA: ", data);
       content = <ScrollView>{data.map((data, idx) => <FeedPost key={idx} data={data} />)}</ScrollView>;
     } else {
       content = <Text><EvilIcon name="spinner" size={50} /></Text>;

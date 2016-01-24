@@ -62,6 +62,7 @@ var WeatherContainer = React.createClass({
   },
 
   render() {
+    console.log("WEATHER: ", this.props.weather);
     return (
       <View style={styles.weatherContainer}>
         <View style={styles.topMetrics}>

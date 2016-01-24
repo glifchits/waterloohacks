@@ -36,7 +36,6 @@ var MusicContainer = React.createClass({
   },
 
   render() {
-    console.log("MUSIC PROPS", this.props);
 
     if(!!this.props.top100) {
       var content = this.props.top100.map((song, idx) => <SongItem key={idx} rank={idx + 1} song={song} />);
