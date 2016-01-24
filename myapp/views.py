@@ -114,7 +114,8 @@ def createPicsule(request):
     newDoc.model = ret.get("Model")
     newDoc.make = ret.get("Make")
     newDoc.orientation = ret.get("Orientation")
-    newDoc.date = datetime.datetime.strptime(ret.get("DateTime"), '%Y:%m:%d %H:%M:%S')
+    newDoc.date = datetime.datetime.strptime(ret.get("DateTime"), '%Y:%m:%d %H:%M:%S') if ret.get("DateTime") is not \
+                                                                                          None else datetime.datetime.today()
     newDoc.width = ret.get("ExifImageWidth")
     newDoc.height = ret.get("ExifImageHeight")
     newDoc.longitude = ret.get("Longitude")
