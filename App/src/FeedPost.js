@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
 
   contentContainer:{
     height: 400,
-    width: 400,
   },
 
 });
