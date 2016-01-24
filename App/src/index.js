@@ -11,6 +11,7 @@ import React, {
 
 import FeedImage from './FeedImage';
 var EntypoIcon = require('react-native-vector-icons/Entypo');
+var EvilIcon = require('react-native-vector-icons/EvilIcons');
 
 
 class Header extends Component {
@@ -62,7 +63,7 @@ class ImageFeed extends Component {
       const images = this.state.images;
       content = <ScrollView>{images.map((image, idx) => <FeedImage key={idx} image={image} />)}</ScrollView>;
     } else {
-      content = <Text>Image Feed loading..</Text>;
+      content = <Text><EvilIcon name="spinner" size={50} /></Text>;
     }
 
     return (

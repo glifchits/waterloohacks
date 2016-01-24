@@ -5,63 +5,68 @@ import React, {
   StyleSheet,
   Image,
   View,
-  Text
+  Text,
+  TouchableOpacity
 } from 'react-native';
 
-var EntypoIcon = require('react-native-vector-icons/Entypo');
+var PostToolbar = require('./PostToolbar');
+var MoodContainer = require('./MoodContainer');
+var WeatherContainer = require('./WeatherContainer');
+var ImageContainer = require('./ImageContainer');
+var MusicContainer = require('./MusicContainer');
+var FinanceContainer = require('./FinanceContainer');
 
 
-class PostToolbar extends Component {
+var FeedImage = React.createClass({
 
-  onIconClick() {
-    console.log("CLICK!!!");
-    this.setState({ active : true });
-  }
+  getInitialState() {
+    return {
+      view : 'image'
+    };
+  },
+
+  onSelectIcon(selection) {
+    this.setState({ view : selection });
+  },
+
+  getView() {
+    switch(this.state.view) {
+        case 'mood':
+            return (<MoodContainer />);
+            break;
+        case 'weather':
+            return (<WeatherContainer />);
+            break;
+        case 'image':
+            return (<ImageContainer image={this.props.image}/>);
+            break;
+        case 'music':
+            return (<MusicContainer/>);
+            break;
+        case 'finance':
+            return (<FinanceContainer/>);
+            break;
+        default:
+            return (<ImageContainer />);
+    }
+  },
 
   render() {
-    return (
-      <View style={styles.toolbar}>
-        <View style={styles.toolbarButton}>
-          <EntypoIcon 
-            name="emoji-happy" 
-            size={30} 
-            style={[styles.toolbarButtonIcon, styles.active]}
-            onClick={this.onIconClick.bind(this)}/>
-        </View>
-        <View style={styles.toolbarButton}>
-          <EntypoIcon name="light-up" size={30} style={styles.toolbarButtonIcon}/>
-        </View>
-        <View style={styles.toolbarButton}>
-          <EntypoIcon name="image" size={30} style={styles.toolbarButtonIcon}/>
-        </View>
-        <View style={styles.toolbarButton}>
-          <EntypoIcon name="beamed-note" size={30} style={styles.toolbarButtonIcon}/>
-        </View>
-        <View style={styles.toolbarButton}>
-          <EntypoIcon name="line-graph" size={30} style={styles.toolbarButtonIcon}/>
-        </View>
-      </View>
-    );
-  };
 
-}
+    var view = this.getView();
 
-
-export default class FeedImage extends Component {
-
-  render() {
-    const image = this.props.image;
-    const url = `https://picsule.herokuapp.com${image.url}`;
-    console.log("URL", url);
     return (
       <View style={styles.mainContainer}>
-        <Image source={{uri: url}} style={styles.feedImage} />
-        <PostToolbar />
+        <View style={styles.contentContainer}>
+          {view}
+        </View>
+        <PostToolbar onSelectIcon={this.onSelectIcon}/>
       </View>
     );
   }
 
-}
+});
+
 
 
 const styles = StyleSheet.create({
@@ -70,28 +75,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  feedImage:{
+  contentContainer:{
     height: 400,
     width: 400,
     padding: 15
   },
 
-  toolbar:{
-    backgroundColor:'#fff',
-    paddingTop:5,
-    paddingBottom:5,
-    flexDirection:'row'
-  },
-  toolbarButton:{
-    flex: 1,
-  },
-  toolbarButtonIcon: {
-    textAlign:'center',
-    color: '#ccc'
-  },
-
-  active: {
-    color: '#000'
-  }
-
 });
+
+
+module.exports = FeedImage;
