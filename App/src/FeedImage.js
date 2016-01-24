@@ -8,28 +8,37 @@ import React, {
   Text
 } from 'react-native';
 
-var FAIcon = require('react-native-vector-icons/FontAwesome');
-var IONIcon = require('react-native-vector-icons/Ionicons');
+var EntypoIcon = require('react-native-vector-icons/Entypo');
+
 
 class PostToolbar extends Component {
+
+  onIconClick() {
+    console.log("CLICK!!!");
+    this.setState({ active : true });
+  }
 
   render() {
     return (
       <View style={styles.toolbar}>
         <View style={styles.toolbarButton}>
-          <FAIcon name="smile-o" size={30} style={styles.toolbarButtonIcon}/>
+          <EntypoIcon 
+            name="emoji-happy" 
+            size={30} 
+            style={[styles.toolbarButtonIcon, styles.active]}
+            onClick={this.onIconClick.bind(this)}/>
         </View>
         <View style={styles.toolbarButton}>
-          <IONIcon name="ios-rainy-outline" size={30} style={styles.toolbarButtonIcon}/>
+          <EntypoIcon name="light-up" size={30} style={styles.toolbarButtonIcon}/>
         </View>
         <View style={styles.toolbarButton}>
-          <IONIcon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
+          <EntypoIcon name="image" size={30} style={styles.toolbarButtonIcon}/>
         </View>
         <View style={styles.toolbarButton}>
-          <IONIcon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
+          <EntypoIcon name="beamed-note" size={30} style={styles.toolbarButtonIcon}/>
         </View>
         <View style={styles.toolbarButton}>
-          <IONIcon name="arrow-graph-up-right" size={30} style={styles.toolbarButtonIcon}/>
+          <EntypoIcon name="line-graph" size={30} style={styles.toolbarButtonIcon}/>
         </View>
       </View>
     );
@@ -80,5 +89,9 @@ const styles = StyleSheet.create({
     textAlign:'center',
     color: '#ccc'
   },
+
+  active: {
+    color: '#000'
+  }
 
 });

@@ -10,6 +10,7 @@ import React, {
 } from 'react-native';
 
 import FeedImage from './FeedImage';
+var EntypoIcon = require('react-native-vector-icons/Entypo');
 
 
 class Header extends Component {
@@ -26,7 +27,7 @@ class Header extends Component {
   render() {
     return (
       <View style={this.style}>
-        <Text>Jolt</Text>
+        <EntypoIcon name="star" size={20} style={styles.logo}/> 
       </View>
     );
   }
@@ -96,4 +97,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  logo: {
+    color: '#fff'
+  }
 });
