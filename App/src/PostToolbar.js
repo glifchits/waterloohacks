@@ -27,11 +27,11 @@ var PostToolbarButton = React.createClass({
       iconStyle.push(styles.active);
     }
     return (
-      <TouchableOpacity 
-        onPress={this.props.onPressIcon} 
+      <TouchableOpacity
+        onPress={this.props.onPressIcon}
         style={styles.toolbarButton}>
-        <EntypoIcon 
-          name={this.props.icon} 
+        <EntypoIcon
+          name={this.props.icon}
           size={30}
           style={iconStyle}/>
       </TouchableOpacity>
@@ -61,17 +61,9 @@ var PostToolbar = React.createClass({
     return (
       <View style={styles.toolbar}>
         <PostToolbarButton
-          name="mood"
-          icon="emoji-happy"
-          active={this.state.selected === 'mood'}
-          onPressIcon={() => {
-            this.setState({ selected : 'mood'});
-            this.props.onSelectIcon('mood');
-          }}/>
-        <PostToolbarButton
           name="weather"
           icon="light-up"
-          active={this.state.selected === 'weather'} 
+          active={this.state.selected === 'weather'}
           onPressIcon={() => {
             this.setState({ selected : 'weather'});
             this.props.onSelectIcon('weather');
@@ -79,7 +71,7 @@ var PostToolbar = React.createClass({
         <PostToolbarButton
           name="image"
           icon="image"
-          active={this.state.selected === 'image'} 
+          active={this.state.selected === 'image'}
           onPressIcon={() => {
             this.setState({ selected : 'image'});
             this.props.onSelectIcon('image');
@@ -87,7 +79,7 @@ var PostToolbar = React.createClass({
         <PostToolbarButton
           name="music"
           icon="beamed-note"
-          active={this.state.selected === 'music'} 
+          active={this.state.selected === 'music'}
           onPressIcon={() => {
             this.setState({ selected : 'music'});
             this.props.onSelectIcon('music');
@@ -95,7 +87,7 @@ var PostToolbar = React.createClass({
         <PostToolbarButton
           name="finance"
           icon="line-graph"
-          active={this.state.selected === 'finance'} 
+          active={this.state.selected === 'finance'}
           onPressIcon={() => {
             this.setState({ selected : 'finance'});
             this.props.onSelectIcon('finance');
