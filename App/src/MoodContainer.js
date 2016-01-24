@@ -30,11 +30,11 @@ var MoodButton = React.createClass({
       iconStyle.push(styles.active);
     }
     return (
-      <TouchableOpacity 
-        onPress={this.props.onPressIcon} 
+      <TouchableOpacity
+        onPress={this.props.onPressIcon}
         style={styles.moodButton}>
-        <Icon 
-          name={this.props.icon} 
+        <Icon
+          name={this.props.icon}
           size={30}
           style={styles.moodIcon}/>
       </TouchableOpacity>
@@ -53,16 +53,23 @@ var MoodContainer = React.createClass({
     };
   },
 
-
+  onPress(name) {
+    console.log('ON PRESS', name);
+    this.setState({ selected: name }, () => {
+      if (this.props.onChange) {
+        this.props.onChange(name);
+      }
+    });
+  },
 
   render() {
     return (
       <View style={styles.moodContainer}>
-        <MoodButton name="very-sad" active="false" icon="emoji-very-sad" onPressIcon={() => { this.setState({ selected : 'very-sad' });}}/>
-        <MoodButton name="sad" active="false" icon="emoji-sad" onPressIcon={() => { this.setState({ selected : 'sad' });}}/>
-        <MoodButton name="neutral" active="false" icon="emoji-neutral" onPressIcon={() => { this.setState({ selected : 'neutral' });}}/>
-        <MoodButton name="happy" active="false" icon="emoji-happy" onPressIcon={() => { this.setState({ selected : 'happy' });}}/>
-        <MoodButton name="very-happy" active="false" icon="emoji-very-happy" onPressIcon={() => { this.setState({ selected : 'very-happy' });}}/>
+        <MoodButton name="very-sad" active={false} icon="emoji-very-sad" onPressIcon={this.onPress.bind(this, 'very-sad')}  />
+        <MoodButton name="sad" active={false} icon="emoji-sad" onPressIcon={this.onPress.bind(this, 'sad')} />
+        <MoodButton name="neutral" active={false} icon="emoji-neutral" onPressIcon={this.onPress.bind(this, 'neutral')}  />
+        <MoodButton name="happy" active={false} icon="emoji-happy" onPressIcon={this.onPress.bind(this,'happy')} />
+        <MoodButton name="very-happy" active={false} icon="emoji-very-happy" onPressIcon={this.onPress.bind(this, 'very-happy')} />
       </View>
     );
   }
@@ -73,8 +80,9 @@ var MoodContainer = React.createClass({
 const styles = StyleSheet.create({
 
   moodContainer:{
-    flex: 1,
-    backgroundColor:'#fff',
+    //flex: 1,
+    margin: 20,
+    //backgroundColor:'#fff',
     flexDirection:'row',
     alignItems: 'center',
     justifyContent: 'center'
