@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f1006c6-c401-4886-8f24-ce58e79388b2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/1391292711403.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/1391293578117.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/1391295049714.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/20140201_183138.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_2233.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_2247.PNG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_2273.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_2292.mp4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_2297.PNG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_2299.JPG" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myproject/database/database.sqlite3" afterPath="$PROJECT_DIR$/myproject/database/database.sqlite3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myapp/views.py" afterPath="$PROJECT_DIR$/myapp/views.py" />
     </list>
     <ignored path="myproject.iws" />
@@ -41,9 +31,11 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myapp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24029127">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="33" />
-              <folding />
+            <state vertical-scroll-proportion="0.30456853">
+              <caret line="75" column="84" selection-start-line="75" selection-start-column="84" selection-end-line="75" selection-end-column="84" />
+              <folding>
+                <element signature="e#24#71#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -575,7 +567,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -583,7 +577,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="37" column="13" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="13" />
-          <folding />
+          <folding>
+            <element signature="e#24#71#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -657,7 +653,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="37" column="14" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="14" />
-          <folding />
+          <folding>
+            <element signature="e#24#71#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -723,7 +721,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="37" column="14" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="14" />
-          <folding />
+          <folding>
+            <element signature="e#24#71#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -853,9 +853,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myapp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24029127">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="33" />
-          <folding />
+        <state vertical-scroll-proportion="0.30456853">
+          <caret line="75" column="84" selection-start-line="75" selection-start-column="84" selection-end-line="75" selection-end-column="84" />
+          <folding>
+            <element signature="e#24#71#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
