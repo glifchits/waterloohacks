@@ -18,9 +18,10 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def setMood(request):
-    docId = request.POST.get('id', None)
-    mood = request.POST.get('mood', None)
-    caption = request.POST.get('caption', None)
+    postData = json.loads(request.body)
+    docId = postData.get('id', None)
+    mood = postData.get('mood', None)
+    caption = postData.get('caption', None)
 
     if docId is None:
         return HttpResponse(json.dumps({'status': 'error: invalid id'}), content_type="application/json")
@@ -96,6 +97,10 @@ def createPicsule(request):
         chart = billboard.ChartData('hot-100', formattedDate)
         ret["Top100"] = [str(e) for e in chart.entries[:10]]
 
+
+        nonTouchedDate = datetime.datetime.strptime(date, '%Y:%m:%d %H:%M:%S')
+        actualFormattedDate = nonTouchedDate.strftime("%Y-%m-%d")
+
         #get weather
         latitude = ret.get("Latitude")
         longitude = ret.get("Longitude")
@@ -113,7 +118,7 @@ def createPicsule(request):
                 try:
                     weatherObj = urlopen(Request("https://api.weathersource.com/v1/4d6060d10090464668ef/postal_codes/" +
                                              postalCode + "," + countryCode + "/forecast.json?period=day&" +
-                                            "timestamp=" + formattedDate + "&fields=tempAvg,precip,snowfall," +
+                                            "timestamp=" + actualFormattedDate + "&fields=tempAvg,precip,snowfall," +
                                             "windSpdAvg,cldCvrAvg,dewPtAvg,feelsLikeAvg,relHumAvg,sfcPresAvg"))\
                     .read()
 
@@ -125,12 +130,12 @@ def createPicsule(request):
 
         #get s&p500 data
         sandpData = urlopen(Request("https://www.quandl.com/api/v3/datasets/YAHOO/INDEX_GSPC.json?start_date=" +
-                                    formattedDate + "&end_date=" + formattedDate)).read()
+                                    actualFormattedDate + "&end_date=" +
+                                    (nonTouchedDate + datetime.timedelta(days=1)).strftime("%Y-%m-%d"))).read()
         sandpJson = json.loads(sandpData)
-        print sandpData
-        if 'data' in sandpJson and len(sandpJson.data) >= 5:
-            ret["sandp500Open"] = sandpJson.data[1] #1 is open
-            ret["sandp500Close"] = sandpJson.data[4] #4 is close
+        if 'data' in sandpJson and len(sandpJson.data) > 0:
+            ret["sandp500Open"] = sandpJson.data[0][1] #1 is open
+            ret["sandp500Close"] = sandpJson.data[0][4] #4 is close
 
     newDoc.model = ret.get("Model")
     newDoc.make = ret.get("Make")
