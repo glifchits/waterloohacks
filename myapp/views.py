@@ -18,8 +18,11 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def fileUpload(request):
+    print 'called file upload'
     # Handle file upload
     if request.method == 'POST':
+        print request.POST
+        print request.FILES
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             createPicsule(request)
@@ -114,7 +117,8 @@ def createPicsule(request):
     newDoc.latitude = ret.get("Latitude")
     newDoc.top100 = json.dumps(ret.get("Top100"))
     newDoc.weather = json.dumps(ret.get("Weather"))
-    newDoc.save(update_fields=["model", "make", "orientation", "date", "width", "height", "longitude", "latitude", "top100", "weather"])
+    newDoc.save(update_fields=["model", "make", "orientation", "date", "width", "height", "longitude", "latitude",
+                               "top100", "weather"])
 
 
 def index(request):

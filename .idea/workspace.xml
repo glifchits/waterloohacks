@@ -2,21 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9f1006c6-c401-4886-8f24-ce58e79388b2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_0755.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_1224.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_1527.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_1671.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_2152.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_2265.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_2301.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_8992.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_9410.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/23/IMG_9607.JPG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/myproject/media/documents/2016/01/24/8574770893_0084a8aa65_o.jpg" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/myproject/database/database.sqlite3" afterPath="$PROJECT_DIR$/myproject/database/old.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myapp/models.py" afterPath="$PROJECT_DIR$/myapp/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myapp/templates/myapp/fileUpload.html" afterPath="$PROJECT_DIR$/myapp/templates/myapp/fileUpload.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/myapp/views.py" afterPath="$PROJECT_DIR$/myapp/views.py" />
     </list>
     <ignored path="myproject.iws" />
@@ -117,8 +102,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myapp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.45714286">
-              <caret line="109" column="73" selection-start-line="109" selection-start-column="73" selection-end-line="109" selection-end-column="73" />
+            <state vertical-scroll-proportion="0.51428574">
+              <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
               <folding>
                 <element signature="e#24#71#0" expanded="true" />
               </folding>
@@ -833,14 +818,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myapp/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/myproject/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.142858">
@@ -873,6 +850,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/myapp/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/myapp/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.8235292">
@@ -883,8 +868,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myapp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45714286">
-          <caret line="109" column="73" selection-start-line="109" selection-start-column="73" selection-end-line="109" selection-end-column="73" />
+        <state vertical-scroll-proportion="0.51428574">
+          <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
           <folding>
             <element signature="e#24#71#0" expanded="true" />
           </folding>
