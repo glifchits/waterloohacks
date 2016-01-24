@@ -47,6 +47,7 @@ class Feed extends Component {
       .then(resp => resp.json())
       .then(respData => {
         console.log('data', respData);
+        respData = respData.reverse();
         this.setState({
           data: respData,
         });
@@ -75,6 +76,7 @@ class Feed extends Component {
 
 
 export default class App extends Component {
+
   render() {
     return (
       <View style={styles.container}>
