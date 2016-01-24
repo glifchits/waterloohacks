@@ -12,12 +12,10 @@ import React, {
 var ImageContainer = React.createClass({
 
   render() {
-    const image = this.props.image;
-    const url = `https://picsule.herokuapp.com${image.url}`;
-    console.log("URL", url);
-
+    const url = `https://picsule.herokuapp.com${this.props.imageURL}`;
+    console.log("IMAGECONT  DATA: ", url);
     return (
-      <Image source={{uri: url}} style={styles.feedImage} />
+      <Image source={{uri: url}} style={styles.image} />
     );
   }
 
@@ -26,8 +24,7 @@ var ImageContainer = React.createClass({
 const styles = StyleSheet.create({
   image:{
     height: 400,
-    width: 400,
-    padding: 15
+    width: 400
   },
 
 });

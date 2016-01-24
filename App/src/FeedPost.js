@@ -17,7 +17,11 @@ var MusicContainer = require('./MusicContainer');
 var FinanceContainer = require('./FinanceContainer');
 
 
-var FeedImage = React.createClass({
+var FeedPost = React.createClass({
+
+  propTypes: {
+    data : React.PropTypes.object //the goods from the server
+  },
 
   getInitialState() {
     return {
@@ -30,6 +34,8 @@ var FeedImage = React.createClass({
   },
 
   getView() {
+    var data = this.props.data;
+    console.log("FEEDPOSTDATA: ", data);
     switch(this.state.view) {
         case 'mood':
             return (<MoodContainer />);
@@ -38,10 +44,10 @@ var FeedImage = React.createClass({
             return (<WeatherContainer />);
             break;
         case 'image':
-            return (<ImageContainer image={this.props.image}/>);
+            return (<ImageContainer imageURL={data.url}/>);
             break;
         case 'music':
-            return (<MusicContainer/>);
+            return (<MusicContainer top100={data.Top100}/>);
             break;
         case 'finance':
             return (<FinanceContainer/>);
@@ -52,7 +58,6 @@ var FeedImage = React.createClass({
   },
 
   render() {
-
     var view = this.getView();
 
     return (
@@ -84,4 +89,4 @@ const styles = StyleSheet.create({
 });
 
 
-module.exports = FeedImage;
+module.exports = FeedPost;
