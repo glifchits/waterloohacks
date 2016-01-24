@@ -16,7 +16,7 @@ import requests
 import billboard
 from django.views.decorators.csrf import csrf_exempt
 
-
+@csrf_exempt
 def setMood(request):
     docId = request.GET['id']
     mood = request.GET['mood']
@@ -30,11 +30,8 @@ def setMood(request):
 
 @csrf_exempt
 def fileUpload(request):
-    print 'called file upload'
     # Handle file upload
     if request.method == 'POST':
-        print request.POST
-        print request.FILES
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             createPicsule(request)
@@ -42,8 +39,6 @@ def fileUpload(request):
 
             # Redirect to the document list after POST
             return HttpResponseRedirect(reverse('fileUpload'))
-        else:
-            print 'form is not valid'
     else:
         form = DocumentForm() # A empty, unbound form
     # Render list page with the documents and the form
@@ -55,12 +50,10 @@ def fileUpload(request):
 
 
 def createPicsule(request):
-    print 'create picsule'
     docfile = request.FILES['docfile']
     newDoc = Document(docfile=docfile)
     newDoc.save()
     newDoc = Document.objects.get(id=newDoc.id)
-    print 'newDoc,', newDoc
     ret = {}
     try:
         imageObj = Image.open('myproject' + newDoc.docfile.url)
@@ -124,6 +117,15 @@ def createPicsule(request):
                 except:
                     pass
 
+        #get s&p500 data
+        sandpData = urlopen(Request("https://www.quandl.com/api/v3/datasets/YAHOO/INDEX_GSPC.json?start_date=" +
+                                    formattedDate + "&end_date=" + formattedDate)).read()
+        sandpJson = json.loads(sandpData)
+        print sandpData
+        if 'data' in sandpJson and len(sandpJson.data) >= 5:
+            ret["sandp500Open"] = sandpJson.data[1] #1 is open
+            ret["sandp500Close"] = sandpJson.data[4] #4 is close
+
     newDoc.model = ret.get("Model")
     newDoc.make = ret.get("Make")
     newDoc.orientation = ret.get("Orientation")
@@ -135,8 +137,10 @@ def createPicsule(request):
     newDoc.latitude = ret.get("Latitude")
     newDoc.top100 = json.dumps(ret.get("Top100"))
     newDoc.weather = json.dumps(ret.get("Weather"))
+    newDoc.sandp500Open = ret.get("sandp500Open")
+    newDoc.sandp500Close = ret.get("sandp500Close")
     newDoc.save(update_fields=["model", "make", "orientation", "date", "width", "height", "longitude", "latitude",
-                               "top100", "weather"])
+                               "top100", "weather", "sandp500Open", "sandp500Close"])
 
 
 def index(request):
@@ -149,15 +153,16 @@ def getImages(request):
     # Render list page with the documents and the form
     list = []
     for d in documents:
-        print d.top100
-        print d.weather
         list.append({"url": d.docfile.url, "Model": d.model, "Make": d.make,
                       "Orientation": d.orientation, "Date": str(d.date),
                       "Width": d.width, "Height": d.height,
                       "Latitude": str(d.latitude), "Longitude": str(d.longitude),
                     "Top100": json.loads(d.top100 if d.top100 is not None else "null"),
                      "Weather": json.loads(d.weather if d.weather is not None else "null"), "id": d.id, "Mood": d.mood,
-                     "Caption": d.caption})
+                     "Caption": d.caption, "SAndP500Open": str(d.sandp500Open), "SAndP500Close": str(d.sandp500Close),
+                     "SAndPDelta": str((d.sandp500Close/d.sandp500Open - 1)*100) + '%' if d.sandp500Close is not None
+                                                                                          and d.sandp500Open is not None
+                     else None})
 
     return HttpResponse(json.dumps(list), content_type="application/json")
 '''  list = [];
