@@ -31,6 +31,7 @@
 		CCFF75C532414042B9C07AEF /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 45A5A85FFEC6486EB2518CAF /* FontAwesome.ttf */; };
 		D0C847EF61DD4FDE86ADE9A5 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78B1B7A08B1C419B8DEE8943 /* Ionicons.ttf */; };
 		D6AC8ABCA8134B74917F5880 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7698BFD3D0844DB78B5DDA48 /* Foundation.ttf */; };
+		EB09675E1C54B08B00E95226 /* moods.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EB09675D1C54B08B00E95226 /* moods.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +153,7 @@
 		97E98D6B3B4543F9B0883774 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 0; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		9A5D7E6A02A14147BBE0F92F /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 0; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		C0B0891FCE0D4BA6BC1E8FC1 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 0; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		EB09675D1C54B08B00E95226 /* moods.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = moods.ttf; path = ../assets/moods.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,6 +317,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				EB09675D1C54B08B00E95226 /* moods.ttf */,
 				13B07FAE1A68108700A75B9A /* App */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* AppTests */,
@@ -571,6 +574,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB09675E1C54B08B00E95226 /* moods.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				0A2A95EB09234B0AAD488E29 /* Entypo.ttf in Resources */,
