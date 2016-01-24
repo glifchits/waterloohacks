@@ -40,7 +40,7 @@ var FeedPost = React.createClass({
             return (<MoodContainer />);
             break;
         case 'weather':
-            return (<WeatherContainer />);
+            return (<WeatherContainer weather={data.Weather}/>);
             break;
         case 'image':
             return (<ImageContainer imageURL={data.url}/>);
