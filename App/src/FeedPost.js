@@ -35,6 +35,7 @@ var FeedPost = React.createClass({
 
   getView() {
     var data = this.props.data;
+    console.log("DATA: ", data);
     switch(this.state.view) {
         case 'mood':
             return (<MoodContainer />);
@@ -49,7 +50,7 @@ var FeedPost = React.createClass({
             return (<MusicContainer top100={data.Top100}/>);
             break;
         case 'finance':
-            return (<FinanceContainer/>);
+            return (<FinanceContainer SAndP500Close={data.SAndP500Close} SAndP500Open={data.SAndP500Open} />);
             break;
         default:
             return (<ImageContainer />);

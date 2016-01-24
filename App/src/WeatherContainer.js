@@ -17,9 +17,9 @@ var BottomMetrics = React.createClass({
   render() {
     return (
       <View style={styles.bottomMetrics}>
-        <Text>Wind Speed</Text>
-        <Text>Humidity</Text>
-        <Text>Precipitation</Text>
+        <Text>{`Wind Speed: ${this.props.windSpeed} km/h`}</Text>
+        <Text>{`Humidity: ${this.props.humidity}%`}</Text>
+        <Text>{`Precipitation: ${this.props.precipitation} mm`}</Text>
       </View>
     );
   }
@@ -28,11 +28,16 @@ var BottomMetrics = React.createClass({
 
 var Temperature = React.createClass({
 
+  propTypes: {
+    temp : React.PropTypes.number, //temp
+    feelsLike : React.PropTypes.number
+  },
+
   render() {
     return (
       <View style={styles.temperatureContainer}>
-        <Text style={styles.temperatureValue}>17&#176;</Text>
-        <Text style={styles.feltLike}>Felt like 22&#176;</Text>
+        <Text style={styles.temperatureValue}>{`${this.props.temp}°`}<Text style={styles.temperatureValueUnit}>C</Text></Text>
+        <Text style={styles.feltLike}>{`Felt like ${this.props.feelsLike}°`}<Text style={styles.feltLikeValueUnit}>C</Text></Text>
       </View>
     );
   }
@@ -62,16 +67,30 @@ var WeatherContainer = React.createClass({
   },
 
   render() {
-    console.log("WEATHER: ", this.props.weather);
-    return (
-      <View style={styles.weatherContainer}>
-        <View style={styles.topMetrics}>
-          <WeatherIcon />
-          <Temperature />
+
+    if (!!this.props.weather) {
+      var data = this.props.weather;
+      var temp = data.tempAvg;
+      var feelsLike = data.feelsLikeAvg;
+      var windSpeed = data.windSpdAvg;
+      var humidity = data.relHumAvg;
+      var precipitation = data.precip;
+
+      console.log("WEATHER: ", this.props.weather);
+      return (
+        <View style={styles.weatherContainer}>
+          <View style={styles.topMetrics}>
+            <WeatherIcon />
+            <Temperature temp={temp} feelsLike={feelsLike}/>
+          </View>
+          <BottomMetrics windSpeed={windSpeed} humidity={humidity} precipitation={precipitation}/>
         </View>
-        <BottomMetrics />
-      </View>
-    );
+      );
+    } else {//no data
+      return (
+        <Text>No Data Bro</Text>
+      );
+    }
   }
 
 });
@@ -95,7 +114,6 @@ const styles = StyleSheet.create({
 
   weatherIcon: {
     flex: 1,
-    textAlign: 'center'
   },
 
   weatherIconLogo: {
@@ -108,12 +126,20 @@ const styles = StyleSheet.create({
   },
 
   temperatureValue: {
-    fontSize: 80,
+    fontSize: 70,
+  },
+
+  temperatureValueUnit: {
+    fontSize: 30,
   },
 
   feltLike: {
     fontSize: 15,
     color: '#666'
+  },
+
+  feltLikeValueUnit: {
+    fontSize: 10,
   },
 
   bottomMetrics: {

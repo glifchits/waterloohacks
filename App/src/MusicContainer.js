@@ -44,7 +44,7 @@ var MusicContainer = React.createClass({
     }
 
     return (
-      <View>
+      <View style={styles.musicContainer}>
         <Text style={styles.title}>Billboard Top 10</Text>
         {content}
       </View>
@@ -54,6 +54,11 @@ var MusicContainer = React.createClass({
 });
 
 const styles = StyleSheet.create({
+
+  musicContainer: {
+    paddingLeft: 5,
+    paddingRight: 5
+  },
 
   title: {
     fontSize: 15,
