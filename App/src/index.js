@@ -13,23 +13,26 @@ import FeedPost from './FeedPost';
 import PhotoAccess from './PhotoAccess';
 var EntypoIcon = require('react-native-vector-icons/Entypo');
 var EvilIcon = require('react-native-vector-icons/EvilIcons');
+var Ionicon = require('react-native-vector-icons/Ionicons');
 
 
 class Header extends Component {
 
   style = {
     marginTop: 20,
-    padding: 18,
+    padding: 10,
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "#0000ff",
+    backgroundColor: "#1B98C2",
+    flexDirection: 'row'
   };
 
   render() {
     return (
       <View style={this.style}>
-        <EntypoIcon name="star" size={20} style={styles.logo}/>
+        <Ionicon name="ios-timer" size={26} style={styles.logo}/>
+        <Text style={{ padding: 5, color: 'white', fontSize: 18, fontWeight: 'bold' }}>Rearview</Text>
       </View>
     );
   }

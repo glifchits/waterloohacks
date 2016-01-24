@@ -167,7 +167,7 @@ export default class PhotoAccess extends Component {
     } else if (this.state.showMood) {
       content = <MoodInput postID={this.state.id} hideMood={this.hideMood.bind(this)}/>;
     } else {
-      content = <ActionButton buttonColor="red" onPress={this.onPress.bind(this)} />;
+      content = <ActionButton buttonColor="#2C48CB" onPress={this.onPress.bind(this)} />;
     }
     return content;
   }
