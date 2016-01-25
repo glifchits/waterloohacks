@@ -15,6 +15,7 @@ from urllib2 import Request, urlopen, URLError
 import requests
 import billboard
 from django.views.decorators.csrf import csrf_exempt
+import os
 
 @csrf_exempt
 def setMood(request):
@@ -43,7 +44,10 @@ def fileUpload(request):
         if form.is_valid():
             docId = createPicsule(request)
           #  newdoc.save()
-
+            for (dir, _, files) in os.walk("myproject/media/documents"):
+                for f in files:
+                    path = os.path.join(dir, f)
+                    print path
             # Redirect to the document list after POST
             return HttpResponse(json.dumps({'id': docId}), content_type="application/json")
     else:
@@ -79,7 +83,7 @@ def createPicsule(request):
                 else:
                     ret[decoded] = value
     except:
-        pass
+        print "error occured while tryin to grab image exif"
 
     #get top songs
     date = ret.get("DateTime")
@@ -129,13 +133,16 @@ def createPicsule(request):
                     pass
 
         #get s&p500 data
-        sandpData = urlopen(Request("https://www.quandl.com/api/v3/datasets/YAHOO/INDEX_GSPC.json?start_date=" +
-                                    actualFormattedDate + "&end_date=" +
-                                    (nonTouchedDate + datetime.timedelta(days=3)).strftime("%Y-%m-%d"))).read()
-        sandpJson = json.loads(sandpData)["dataset"]
-        if 'data' in sandpJson and len(sandpJson["data"]) > 0:
-            ret["sandp500Open"] = sandpJson["data"][0][1] #1 is open
-            ret["sandp500Close"] = sandpJson["data"][0][4] #4 is close
+        try:
+            sandpData = urlopen(Request("https://www.quandl.com/api/v3/datasets/YAHOO/INDEX_GSPC.json?start_date=" +
+                                        actualFormattedDate + "&end_date=" +
+                                        (nonTouchedDate + datetime.timedelta(days=3)).strftime("%Y-%m-%d"))).read()
+            sandpJson = json.loads(sandpData)["dataset"]
+            if 'data' in sandpJson and len(sandpJson["data"]) > 0:
+                ret["sandp500Open"] = sandpJson["data"][0][1] #1 is open
+                ret["sandp500Close"] = sandpJson["data"][0][4] #4 is close
+        except:
+            print 'too many requests. no data pulled'
 
     newDoc.model = ret.get("Model")
     newDoc.make = ret.get("Make")
