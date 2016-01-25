@@ -44,13 +44,17 @@ var CaptionToolbar = React.createClass({
 
     console.log('icon name', iconName);
 
+    let date = new Date(this.props.data.Date);
+
     return (
       <View style={styles.captionToolbar}>
         <Icon
           name={iconName}
           size={48}
           style={iconStyles} />
-        <Text style={styles.caption}>{Caption ? Caption : "<No caption>" }</Text>
+        <View style={{flexDirection: 'column', flex: 1}}>
+          <Text style={styles.caption}>{Caption ? Caption : "<No caption>" }</Text>
+        </View>
       </View>
     );
   }
@@ -69,6 +73,14 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     justifyContent: 'center',
     flex: 0.80
+  },
+
+  date: {
+    paddingLeft: 10,
+    paddingRight: 10,
+    justifyContent: 'center',
+    flex: 0.80,
+    color: "#888"
   },
 
   moodIcon: {
