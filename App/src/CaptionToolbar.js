@@ -18,6 +18,11 @@ var Icon = createIconSetFromFontello(fontelloConfig, 'fontello', '../assets/mood
 
 var CaptionToolbar = React.createClass({
 
+  propTypes: {
+    caption : React.PropTypes.string, //user's caption for post
+    mood : React.PropTypes.number // mood ranking
+  },
+
   render() {
     return (
       <View style={styles.captionToolbar}>
