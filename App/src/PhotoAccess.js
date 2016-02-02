@@ -27,11 +27,15 @@ class CameraRollSelector extends Component {
     let fileName = image.uri;
     let idx = fileName.indexOf('id=') + 3;
     let fileID = fileName.substring(idx, idx+36);
+    let extIdx = fileName.indexOf('ext=') + 4;
+    let fileExt = fileName.substring(extIdx);
+    let fullFileName =  `${fileID}.${fileExt}`;
+    console.log('filename', fullFileName);
 
     var obj = {
       uri: image.uri, // either an 'assets-library' url (for files from photo library) or an image dataURL
       uploadUrl: 'https://picsule.herokuapp.com/myapp/',
-      fileName: fileID,
+      fileName: fullFileName,
       fileKey: 'docfile', // (default="file") the name of the field in the POST form data under which to store the file
       mimeType: 'image/png', //'multipart/form-data',
       headers: undefined,
@@ -167,7 +171,7 @@ export default class PhotoAccess extends Component {
     } else if (this.state.showMood) {
       content = <MoodInput postID={this.state.id} hideMood={this.hideMood.bind(this)}/>;
     } else {
-      content = <ActionButton buttonColor="red" onPress={this.onPress.bind(this)} />;
+      content = <ActionButton buttonColor="#2C48CB" onPress={this.onPress.bind(this)} />;
     }
     return content;
   }

@@ -67,7 +67,7 @@ var FeedPost = React.createClass({
           {view}
         </View>
         <PostToolbar onSelectIcon={this.onSelectIcon}/>
-        <CaptionToolbar />
+        <CaptionToolbar data={this.props.data}/>
       </View>
     );
   }
